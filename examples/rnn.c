@@ -174,7 +174,8 @@ void train_char_rnn(char *cfgfile, char *weightfile, char *filename, int clear, 
     network *net = load_network(cfgfile, weightfile, clear);
 
     int inputs = net->inputs;
-    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g, Inputs: %d %d %d\n", net->learning_rate, net->momentum, net->decay, inputs, net->batch, net->time_steps);
+    fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g, Inputs: (%d inputs) (%d batch) (%d steps) (%d max_batches)\n",
+        net->learning_rate, net->momentum, net->decay, inputs, net->batch, net->time_steps, net->max_batches);
     int batch = net->batch;
     int steps = net->time_steps;
     if(clear) *net->seen = 0;
