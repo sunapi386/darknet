@@ -167,7 +167,7 @@ void train_char_rnn(char *cfgfile, char *weightfile, char *filename, int clear, 
         size = strlen((const char*)text);
     }
 
-    char *backup_directory = "/home/pjreddie/backup/";
+    char *backup_directory = "/tmp";
     char *base = basecfg(cfgfile);
     fprintf(stderr, "%s\n", base);
     float avg_loss = -1;
@@ -218,12 +218,12 @@ void train_char_rnn(char *cfgfile, char *weightfile, char *filename, int clear, 
             }
         }
 
-        if(i%10000==0){
+        if(i%10==0){
             char buff[256];
             sprintf(buff, "%s/%s_%d.weights", backup_directory, base, i);
             save_weights(net, buff);
         }
-        if(i%100==0){
+        if(i%5==0){
             char buff[256];
             sprintf(buff, "%s/%s.backup", backup_directory, base);
             save_weights(net, buff);
@@ -232,6 +232,7 @@ void train_char_rnn(char *cfgfile, char *weightfile, char *filename, int clear, 
     char buff[256];
     sprintf(buff, "%s/%s_final.weights", backup_directory, base);
     save_weights(net, buff);
+    fprintf(stderr, "Move this to somewhere safe!\n");
 }
 
 void print_symbol(int n, char **tokens){
